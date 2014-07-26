@@ -1,9 +1,10 @@
 var redis = require('redis').createClient();
+
 var start;
+var n = 1000;
+var fibNumber = 30;
 
 redis.subscribe('queue');
-
-var n = 1000;
 
 redis.on('message', function(channel, message) {
   var data = JSON.parse(message);
@@ -21,7 +22,7 @@ function doWork(i, callback) {
   console.log('Processing %s', i);
 
   var e = new Date().getTime();
-  var res = fib(30);
+  var res = fib(fibNumber);
   e = new Date().getTime() - e;
 
   callback(i, res, e);
